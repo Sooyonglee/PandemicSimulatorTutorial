@@ -72,6 +72,7 @@ small_town_config = PandemicSimConfig(
         LocationConfig(HairSalon, num=4, num_assignees=3, state_opts=dict(visitor_capacity=5)),
         LocationConfig(Restaurant, num=2, num_assignees=6, state_opts=dict(visitor_capacity=30)),
         LocationConfig(Bar, num=2, num_assignees=5, state_opts=dict(visitor_capacity=30)),
+        LocationConfig(Bus, num=4, num_assignees=4, state-Opts=dict(visitor_capacity=30))   
     ],
     person_routine_assignment=DefaultPersonRoutineAssignment())
 
@@ -86,7 +87,8 @@ tiny_town_config = PandemicSimConfig(
         LocationConfig(RetailStore, num=2, num_assignees=5, state_opts=dict(visitor_capacity=30)),
         LocationConfig(HairSalon, num=2, num_assignees=3, state_opts=dict(visitor_capacity=5)),
         LocationConfig(Restaurant, num=1, num_assignees=6, state_opts=dict(visitor_capacity=30)),
-        LocationConfig(Bar, num=1, num_assignees=3, state_opts=dict(visitor_capacity=30))
+        LocationConfig(Bar, num=1, num_assignees=3, state_opts=dict(visitor_capacity=30)),
+        LocationConfig(Bus, num=1, num_assignees=1, state-Opts=dict(visitor_capacity=30))  
     ],
     person_routine_assignment=DefaultPersonRoutineAssignment())
 
