@@ -1,7 +1,7 @@
 from tqdm import trange
 
 import pandemic_simulator as ps
-
+from pandemic_simulator.environment import Person, Location
 
 def run_pandemic_sim() -> None:
     """Here we execute the simulator using austin regulations, a small town config and default person routines."""
@@ -14,6 +14,7 @@ def run_pandemic_sim() -> None:
     # select a simulator config
     # sim_config = ps.sh.small_town_config
     sim_config = ps.sh.tiny_town_config
+
 
     # make sim
     sim = ps.env.PandemicSim.from_config(sim_config)
