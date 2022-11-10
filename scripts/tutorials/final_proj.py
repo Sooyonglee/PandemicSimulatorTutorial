@@ -32,6 +32,10 @@ def run_pandemic_sim() -> None:
     # generate plots
     viz.plot()
 
+    # viz.plot([ps.viz.PlotType.global_infection_summary,
+    #           ps.viz.PlotType.location_assignee_visits,
+    #           ps.viz.PlotType.location_visitor_visits])
+
 
 if __name__ == '__main__':
     run_pandemic_sim()

@@ -5,7 +5,7 @@
 from typing import Sequence, Type
 
 from ..environment import LocationID, PersonRoutine, HairSalon, Restaurant, Bar, Bus, \
-    GroceryStore, RetailStore, triggered_routine, weekend_routine, social_routine, mid_day_during_week_routine, \
+    GroceryStore, RetailStore, triggered_routine, weekend_routine, social_routine, mid_day_during_week_routine, to_bus_routine, from_bus_routine, \
     PersonRoutineAssignment, Person, Retired, Minor, Worker, Location
 
 __all__ = ['DefaultPersonRoutineAssignment']
@@ -54,11 +54,18 @@ class DefaultPersonRoutineAssignment(PersonRoutineAssignment):
         ]
 
         return routines
+    
+    @staticmethod
+    def get_worker_travel_routine(home_id: LocationID, work_id: LocationID) -> Sequence[PersonRoutine]:
+        routines = [
+            to_bus_routine(home_id),
+            from_bus_routine(work_id)
+        ]
+        return routines
 
     @staticmethod
     def get_worker_outside_work_routines(home_id: LocationID) -> Sequence[PersonRoutine]:
         routines = [
-            triggered_routine(None, Bus, 7),
             triggered_routine(None, GroceryStore, 7),
             triggered_routine(None, RetailStore, 7),
             triggered_routine(None, HairSalon, 30),
@@ -77,3 +84,4 @@ class DefaultPersonRoutineAssignment(PersonRoutineAssignment):
             elif isinstance(p, Worker):
                 p.set_during_work_routines(self.get_worker_during_work_routines(p.work))
                 p.set_outside_work_routines(self.get_worker_outside_work_routines(p.home))
+                p.set_travel_routines(self.get_worker_travel_routine(p.home, p.work))

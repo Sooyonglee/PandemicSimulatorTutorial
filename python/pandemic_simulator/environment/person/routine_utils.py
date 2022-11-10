@@ -4,8 +4,9 @@ from typing import Sequence, Optional, cast, Type, Tuple
 from .base import BasePerson
 from ..interfaces import PersonRoutineWithStatus, NoOP, NOOP, LocationID, SpecialEndLoc, globals, PersonRoutine, \
     SimTimeTuple, SimTimeRoutineTrigger, RoutineTrigger
+from ..location import Bus
 
-__all__ = ['execute_routines', 'triggered_routine', 'weekend_routine', 'mid_day_during_week_routine', 'social_routine']
+__all__ = ['execute_routines', 'triggered_routine', 'weekend_routine', 'mid_day_during_week_routine', 'social_routine', 'to_bus_routine', 'from_bus_routine']
 
 
 def execute_routines(person: BasePerson, routines_with_status: Sequence[PersonRoutineWithStatus]) -> Optional[NoOP]:
@@ -122,3 +123,19 @@ def social_routine(start_loc: Optional[LocationID]) -> PersonRoutine:
                          valid_time=SimTimeTuple(hours=tuple(range(15, 20))),
                          duration_of_stay_at_end_loc=globals.numpy_rng.randint(1, 3),
                          reset_when_done_trigger=SimTimeRoutineTrigger(day=7))
+
+def to_bus_routine(start_loc: LocationID) -> PersonRoutine:
+    end_loc, explorable_end_locs = _get_locations_from_type(Bus)
+    return PersonRoutine(start_loc=start_loc,
+                        end_loc=end_loc,
+                        valid_time=SimTimeTuple(hours=tuple([8,9]), week_days=tuple(range(0,5))),
+                        explorable_end_locs=explorable_end_locs,
+                        explore_probability=1)
+
+def from_bus_routine(start_loc: LocationID) -> PersonRoutine:
+    end_loc, explorable_end_locs = _get_locations_from_type(Bus)
+    return PersonRoutine(start_loc=start_loc,
+                        end_loc=end_loc,
+                        valid_time=SimTimeTuple(hours=tuple([8,9]), week_days=tuple(range(0,5))),
+                        explorable_end_locs=explorable_end_locs,
+                        explore_probability=1)

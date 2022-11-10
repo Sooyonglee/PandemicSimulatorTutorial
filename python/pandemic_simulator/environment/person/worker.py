@@ -73,6 +73,12 @@ class Worker(BasePerson):
             if routine not in self._routines:
                 self._routines.append(routine)
                 self._outside_work_rs.append(PersonRoutineWithStatus(routine))
+    
+    def set_travel_routines(self, routines: Sequence[PersonRoutine]) -> None:
+        for routine in routines:
+            if routine not in self._routines:
+                self._routines.append(routine)
+                self._outside_work_rs.append(PersonRoutineWithStatus(routine))
 
     def _sync(self, sim_time: SimTime) -> None:
         super()._sync(sim_time)
